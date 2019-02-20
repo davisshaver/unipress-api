@@ -1261,12 +1261,12 @@ if ( ! class_exists( 'UniPress_API' ) ) {
 				if ( !empty( $attachment_posts ) ) {
 					foreach ( $attachment_posts as $attachment ) {
 						$metadata = wp_get_attachment_metadata( $attachment->ID );
-						$temp_attachment = get_post( $attachment->ID );
-						$metadata['image_meta']['title']       = $temp_attachment->post_title;
-						$metadata['image_meta']['alt']         = get_post_meta( $temp_attachment->ID, '_wp_attachment_image_alt', true );
-						$metadata['image_meta']['description'] = $temp_attachment->post_content;
-						$metadata['image_meta']['caption']     = $temp_attachment->post_excerpt;
 						if ( !empty( $metadata ) ) {
+							$temp_attachment = get_post( $attachment->ID );
+							$metadata['image_meta']['title']       = $temp_attachment->post_title;
+							$metadata['image_meta']['alt']         = get_post_meta( $temp_attachment->ID, '_wp_attachment_image_alt', true );
+							$metadata['image_meta']['description'] = $temp_attachment->post_content;
+							$metadata['image_meta']['caption']     = $temp_attachment->post_excerpt;
 							$attachments[] = apply_filters( 'unipress_api_get_content_list_attachment_metadata', $metadata, $attachment->ID );
 						}
 					}
