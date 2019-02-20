@@ -1278,13 +1278,13 @@ if ( ! class_exists( 'UniPress_API' ) ) {
 				$featured_image_id = get_post_thumbnail_id( $post->ID );
 
 				if ( !empty( $featured_image_id ) ) {
-									$post->featured_image = wp_get_attachment_metadata( $featured_image_id );
-									$temp_attachment = get_post( $featured_image_id );
-									$post->featured_image['image_meta']['title']       = $temp_attachment->post_title;
-									$post->featured_image['image_meta']['alt']         = get_post_meta( $temp_attachment->ID, '_wp_attachment_image_alt', true );
-									$post->featured_image['image_meta']['description'] = $temp_attachment->post_content;
-									$post->featured_image['image_meta']['caption']     = $temp_attachment->post_excerpt;
-									$post->featured_image = apply_filters( 'unipress_api_get_content_list_featured_image', $post->featured_image, $post->ID, $featured_image_id );
+					$post->featured_image = wp_get_attachment_metadata( $featured_image_id );
+					$temp_attachment = get_post( $featured_image_id );
+					$post->featured_image['image_meta']['title']       = $temp_attachment->post_title;
+					$post->featured_image['image_meta']['alt']         = get_post_meta( $temp_attachment->ID, '_wp_attachment_image_alt', true );
+					$post->featured_image['image_meta']['description'] = $temp_attachment->post_content;
+					$post->featured_image['image_meta']['caption']     = $temp_attachment->post_excerpt;
+					$post->featured_image = apply_filters( 'unipress_api_get_content_list_featured_image', $post->featured_image, $post->ID, $featured_image_id );
 				}
 
 				$post->author_meta = new stdClass();
@@ -1304,7 +1304,7 @@ if ( ! class_exists( 'UniPress_API' ) ) {
 				$post->formatted_post_content = apply_filters( 'the_content', $post->post_content );
 				
 				if ( 'default' === $settings['excerpt-type'] ) {
-					$excerpt = get_the_excerpt( $post );
+					$excerpt = $post->post_excerpt;
 				} else {
 					$excerpt = str_replace( ']]>', ']]&gt;', $post->formatted_post_content ); //From wp-includes/formatting.php
 					$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
